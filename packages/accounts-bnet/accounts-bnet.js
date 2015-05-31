@@ -7,6 +7,7 @@ if (Meteor.isClient) {
       options = null;
     }
   	var credentialRequestCompleteCallback = Accounts.oauth.credentialRequestCompleteHandler(callback);
+    console.log(credentialRequestCompleteCallback);
     BNet.requestCredential(options, credentialRequestCompleteCallback);
 	};
 } else {

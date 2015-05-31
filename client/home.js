@@ -10,8 +10,6 @@ Template.home.helpers({
 Template.home.events({
 	"click #signIn": function() {
 		options = {loginStyle: 'redirect'};
-		Meteor.loginWithBNet(options, function(res) {
-			console.log(res);
-		}); //ToDo
+		Meteor.loginWithBNet(options); //ToDo
 	}
 });
