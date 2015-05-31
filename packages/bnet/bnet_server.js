@@ -46,7 +46,8 @@ var getTokenResponse = function (query) {
 };
 ServiceConfiguration.configurations.upsert(
 	{ service: "bnet" },
-	{ $set: { clientId: "kpvryrqwnhgjxbn5ys4adtb8vbqvsfz7", secret: "dcBStpG4CuZT6rsXvPjJWrEXWduW5jbF" } });
+	//{ $set: { clientId: "kpvryrqwnhgjxbn5ys4adtb8vbqvsfz7", secret: "dcBStpG4CuZT6rsXvPjJWrEXWduW5jbF" } });
+	{ $set: { clientId: "dnue8yufe27mmd8mpcb3pqscje6zv5mk", secret: "jVw47GSQyxhwwypb5eqeaqEKkrZ9xKbX" } });
 
 
 OAuth.registerService('bnet', 2, null, function(query) {
