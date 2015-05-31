@@ -10,6 +10,6 @@ insecure
 accounts-base
 accounts-oauth
 accounts-ui
-elitwilson:accounts-bnet
 elitwilson:bnet
+elitwilson:accounts-bnet
 service-configuration

@@ -17,13 +17,12 @@ var getTokenResponse = function (query) {
 
 		//Request access token
 		responseContent = HTTP.post(
-			"https://" + region + ".battle.net/oauth/authorize", {
+			"https://" + region + ".battle.net/oauth/token", {
 				params: {
-					client_id: config.clientId,
+					redirect_uri: 'https://dev.battle.net/', //requires https
 					scope: 'wow.profile', //no idea if this is right
-					state: 'lina097235hsgl',
-					redirect_uri: 'localhost:3000',
-					response_type: 'code' // For the authorization code server flow, this should be code(???)
+					grant_type: '',					
+					code: '' 
 				}
 			}
 		).content;
@@ -45,21 +44,28 @@ var getTokenResponse = function (query) {
 
 	//Success!
 };
+ServiceConfiguration.configurations.upsert(
+	{ service: "bnet" },
+	{ $set: { clientId: "kpvryrqwnhgjxbn5ys4adtb8vbqvsfz7", secret: "dcBStpG4CuZT6rsXvPjJWrEXWduW5jbF" } });
+
 
 OAuth.registerService('bnet', 2, null, function(query) {
-	var response; //ToDo
-	var accessToken; //ToDo
-	var identity; //ToDo
+	var response = getTokenResponse(query);
+	console.log(response);
+	var accessToken = response.accessToken; //ToDo
+	var identity = getIdentity(accessToken); //ToDo
 
-	var x = ServiceConfiguration.configurations.upsert(
-		{ service: "bnet" },
-		{ $set: { clientId: "kpvryrqwnhgjxbn5ys4adtb8vbqvsfz7", secret: "dcBStpG4CuZT6rsXvPjJWrEXWduW5jbF" } }
-	);
+	var serviceData = {
+		accessToken: accessToken,
+		expiresAt: (+new Date) + (1000 * response.expiresIn)
+	};	
 
-	console.log(x);
+	return {
+		serviceData: serviceData,
+		options: {profile: {name: identity.name}}
+	}
 
 });
-
 /*
 	NOTES: (From BNet API documentation)
 	- Tokens last for 30 days. Always check the response and request a new access token if your current one fails to work.

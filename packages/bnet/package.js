@@ -21,6 +21,7 @@ Package.onUse(function(api) {
   api.use('underscore', 'server');
   //api.use('random', 'client');
   api.use('service-configuration', ['client', 'server']);
+  api.export('BNet');
 
   //api.export('Facebook');
 
